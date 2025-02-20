@@ -15,9 +15,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-fn main() {
-	#[cfg(feature = "std")]
-	{
-		polkadot_sdk::substrate_wasm_builder::WasmBuilder::build_using_defaults();
-	}
+//! Substrate Node Template CLI library.
+#![warn(missing_docs)]
+
+mod chain_spec;
+mod cli;
+mod command;
+mod rpc;
+mod service;
+
+fn main() -> polkadot_sdk::sc_cli::Result<()> {
+    command::run()
 }
