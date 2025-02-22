@@ -1391,9 +1391,9 @@ pub mod api {
             .hash();
         runtime_metadata_hash
             == [
-                155u8, 254u8, 219u8, 47u8, 66u8, 216u8, 109u8, 142u8, 217u8, 96u8, 70u8, 3u8,
-                189u8, 172u8, 145u8, 238u8, 68u8, 52u8, 224u8, 152u8, 1u8, 34u8, 51u8, 97u8, 166u8,
-                36u8, 64u8, 67u8, 187u8, 86u8, 81u8, 107u8,
+                57u8, 241u8, 1u8, 102u8, 144u8, 169u8, 199u8, 161u8, 61u8, 210u8, 109u8, 239u8,
+                243u8, 13u8, 125u8, 172u8, 69u8, 214u8, 80u8, 108u8, 71u8, 245u8, 149u8, 141u8,
+                236u8, 239u8, 34u8, 10u8, 220u8, 104u8, 239u8, 2u8,
             ]
     }
     pub mod system {
@@ -5532,6 +5532,12 @@ pub mod api {
                     pub type Param0 = ::core::primitive::u32;
                     pub type Param1 = ::core::primitive::u32;
                 }
+                pub mod tuple_wrapper_storage_map {
+                    use super::runtime_types;
+                    pub type TupleWrapperStorageMap =
+                        ::core::option::Option<::core::primitive::u32>;
+                    pub type Param0 = runtime_types::pallet_minimal_template::pallet::TupleWrapper;
+                }
             }
             pub struct StorageApi;
             impl StorageApi {
@@ -5613,6 +5619,53 @@ pub mod api {
                             132u8, 215u8, 87u8, 69u8, 126u8, 40u8, 27u8, 101u8, 74u8, 111u8, 243u8,
                             82u8, 186u8, 40u8, 249u8, 164u8, 10u8, 19u8, 93u8, 70u8, 231u8, 169u8,
                             250u8, 19u8, 36u8, 69u8, 249u8, 210u8, 68u8, 249u8, 124u8, 2u8,
+                        ],
+                    )
+                }
+                pub fn tuple_wrapper_storage_map_iter(
+                    &self,
+                ) -> ::subxt::ext::subxt_core::storage::address::StaticAddress<
+                    (),
+                    types::tuple_wrapper_storage_map::TupleWrapperStorageMap,
+                    (),
+                    ::subxt::ext::subxt_core::utils::Yes,
+                    ::subxt::ext::subxt_core::utils::Yes,
+                > {
+                    ::subxt::ext::subxt_core::storage::address::StaticAddress::new_static(
+                        "Template",
+                        "TupleWrapperStorageMap",
+                        (),
+                        [
+                            119u8, 63u8, 255u8, 255u8, 186u8, 2u8, 239u8, 216u8, 196u8, 197u8,
+                            244u8, 21u8, 34u8, 52u8, 25u8, 21u8, 211u8, 20u8, 198u8, 125u8, 179u8,
+                            47u8, 141u8, 222u8, 75u8, 150u8, 218u8, 190u8, 69u8, 237u8, 41u8,
+                            248u8,
+                        ],
+                    )
+                }
+                pub fn tuple_wrapper_storage_map(
+                    &self,
+                    _0: impl ::core::borrow::Borrow<types::tuple_wrapper_storage_map::Param0>,
+                ) -> ::subxt::ext::subxt_core::storage::address::StaticAddress<
+                    ::subxt::ext::subxt_core::storage::address::StaticStorageKey<
+                        types::tuple_wrapper_storage_map::Param0,
+                    >,
+                    types::tuple_wrapper_storage_map::TupleWrapperStorageMap,
+                    ::subxt::ext::subxt_core::utils::Yes,
+                    ::subxt::ext::subxt_core::utils::Yes,
+                    (),
+                > {
+                    ::subxt::ext::subxt_core::storage::address::StaticAddress::new_static(
+                        "Template",
+                        "TupleWrapperStorageMap",
+                        ::subxt::ext::subxt_core::storage::address::StaticStorageKey::new(
+                            _0.borrow(),
+                        ),
+                        [
+                            119u8, 63u8, 255u8, 255u8, 186u8, 2u8, 239u8, 216u8, 196u8, 197u8,
+                            244u8, 21u8, 34u8, 52u8, 25u8, 21u8, 211u8, 20u8, 198u8, 125u8, 179u8,
+                            47u8, 141u8, 222u8, 75u8, 150u8, 218u8, 190u8, 69u8, 237u8, 41u8,
+                            248u8,
                         ],
                     )
                 }
@@ -7030,6 +7083,31 @@ pub mod api {
                     pub id: _0,
                     pub amount: _1,
                 }
+            }
+        }
+        pub mod pallet_minimal_template {
+            use super::runtime_types;
+            pub mod pallet {
+                use super::runtime_types;
+                #[derive(
+                    :: subxt :: ext :: subxt_core :: ext :: codec :: Decode,
+                    :: subxt :: ext :: subxt_core :: ext :: codec :: Encode,
+                    :: subxt :: ext :: subxt_core :: ext :: scale_decode :: DecodeAsType,
+                    :: subxt :: ext :: subxt_core :: ext :: scale_encode :: EncodeAsType,
+                    Clone,
+                    Debug,
+                    PartialEq,
+                )]
+                #[allow(non_snake_case)]
+                # [codec (crate = :: subxt :: ext :: subxt_core :: ext :: codec)]
+                #[codec(dumb_trait_bound)]
+                #[decode_as_type(
+                    crate_path = ":: subxt :: ext :: subxt_core :: ext :: scale_decode"
+                )]
+                #[encode_as_type(
+                    crate_path = ":: subxt :: ext :: subxt_core :: ext :: scale_encode"
+                )]
+                pub struct TupleWrapper(pub (::core::primitive::u32, ::core::primitive::u32));
             }
         }
         pub mod pallet_sudo {

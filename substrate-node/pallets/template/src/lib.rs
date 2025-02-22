@@ -15,6 +15,8 @@ pub use pallet::*;
 #[frame::pallet]
 pub mod pallet {
 
+    use polkadot_sdk::sp_runtime::Serialize;
+
     use super::*;
 
     #[pallet::config]
@@ -24,7 +26,6 @@ pub mod pallet {
     pub struct Pallet<T>(_);
 
     #[pallet::storage]
-    #[pallet::getter(fn liquidity_asset)]
     pub type TupleStorageMap<T: Config> =
         StorageMap<_, Blake2_128Concat, (u32, u32), Option<u32>, ValueQuery>;
 
@@ -33,6 +34,15 @@ pub mod pallet {
         _phantom: PhantomData<T>,
     }
 
+    #[pallet::storage]
+    pub type TupleWrapperStorageMap<T: Config> =
+        StorageMap<_, Blake2_128Concat, TupleWrapper, Option<u32>, ValueQuery>;
+
+    #[derive(
+        Default, Eq, PartialEq, RuntimeDebug, Clone, Encode, Decode, TypeInfo, Serialize, Copy, MaxEncodedLen
+    )]
+    pub struct TupleWrapper(pub (u32, u32));
+
     impl<T: Config> Default for GenesisConfig<T> {
         fn default() -> GenesisConfig<T> {
             GenesisConfig {
@@ -40,12 +50,12 @@ pub mod pallet {
             }
         }
     }
-    // pub struct GenesisConfig<T: Config>(pub std::marker::PhantomData<T>);
 
     #[pallet::genesis_build]
     impl<T: Config> BuildGenesisConfig for GenesisConfig<T> {
         fn build(&self) {
             TupleStorageMap::<T>::insert((1u32, 2u32), Some(3u32));
+            TupleWrapperStorageMap::<T>::insert(TupleWrapper((1u32, 2u32)), Some(4u32));
         }
     }
 }
