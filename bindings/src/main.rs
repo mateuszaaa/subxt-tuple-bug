@@ -5,24 +5,26 @@ use subxt_signer::sr25519::dev;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Create a new API client, configured to talk to Polkadot nodes.
     let api = OnlineClient::<PolkadotConfig>::new().await?;
+    use bindings::api::runtime_types::pallet_minimal_template::pallet::TupleWrapper;
 
-    // Build a dynamic storage query to access account information.
-    let account = dev::alice().public_key();
-    let storage_query =
-        subxt::dynamic::storage("System", "Account", vec![Value::from_bytes(account)]);
+    let query_tuple = bindings::api::storage()
+        .template()
+        .tuple_storage_map(1u32, 2u32);
 
-    // Use that query to `fetch` a result. Because the query is dynamic, we don't know what the result
-    // type will be either, and so we get a type back that can be decoded into a dynamic Value type.
-    let result = api
-        .storage()
-        .at_latest()
-        .await?
-        .fetch(&storage_query)
-        .await?;
-    let value = result.unwrap().to_value()?;
+    let query_wrapper = bindings::api::storage()
+        .template()
+        .tuple_wrapper_storage_map(TupleWrapper((1u32, 2u32)));
 
-    println!("Alice has free balance: {:?}", value.at("data").at("free"));
+
+    println!(
+        "tuple: {:?}",
+        api.storage().at_latest().await?.fetch(&query_tuple).await?
+    );
+
+    println!(
+        "tuple wrapper: {:?}",
+        api.storage().at_latest().await?.fetch(&query_wrapper).await?
+    );
     Ok(())
 }
